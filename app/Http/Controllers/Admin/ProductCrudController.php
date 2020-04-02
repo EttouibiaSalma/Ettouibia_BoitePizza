@@ -54,6 +54,17 @@ class ProductCrudController extends CrudController
             'type' => 'date',
             'name' => 'start_date'
          ]);
+         $this->crud->addColumn([
+            'name' => 'in_promo',
+            'type' => 'boolean',
+            'label' => 'In promo',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'image',
+            'type' => 'image',
+            'label' => 'Image',
+            'height' => '80px'
+        ]);
         $this->crud->addColumn([
             'label' => "End date",
             'type' => 'date',
@@ -67,14 +78,6 @@ class ProductCrudController extends CrudController
         $this->crud->setValidation(ProductRequest::class);
 
         // TODO: remove setFromDb() and manually define Fields
-        $this->crud->setColumnDetails('category_id',[
-            'label' => "Categorie",
-            'type' => 'select',
-            'name' => 'category_id', // the column that contains the ID of that connected entity;
-            'entity' => 'category', // the method that defines the relationship in your Model
-            'attribute' => 'name', // foreign key attribute that is shown to user
-            'model' => "App\Models\Category"
-         ]);
         $this->crud->addField([
             'label' => "Categorie",
             'type' => 'select',
