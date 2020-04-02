@@ -29,7 +29,37 @@ class ProductCrudController extends CrudController
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
-        $this->crud->setFromDb();
+        $this->crud->addColumn([
+            'label' => "Product name",
+            'type' => 'text',
+            'name' => 'name'
+         ]);
+         $this->crud->addColumn([
+            'label' => "Price",
+            'type' => 'text',
+            'name' => 'price'
+         ]);
+         $this->crud->addColumn([
+            'label' => "Discount",
+            'type' => 'text',
+            'name' => 'discount'
+         ]);
+         $this->crud->addColumn([
+            'label' => "Category",
+            'type' => 'text',
+            'name' => 'category.name'
+         ]);
+         $this->crud->addColumn([
+            'label' => "Start date",
+            'type' => 'date',
+            'name' => 'start_date'
+         ]);
+        $this->crud->addColumn([
+            'label' => "End date",
+            'type' => 'date',
+            'name' => 'end_date'
+         ]);
+        //$this->crud->setFromDb();
     }
 
     protected function setupCreateOperation()
