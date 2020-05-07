@@ -51,7 +51,9 @@ class ProductRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'name.required'=>'Ce champs est obligatoire',
+            'name.min'=>'Ce champs doit avoir un minimum de 5 caracteres',
+            'category_id.nom'=>'Ce champs est obligatoire'
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class FormuleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,9 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:255'
+            'name' => 'required',
+            'prix'=>'required',
+            'description' => 'required'
         ];
     }
 
@@ -50,7 +52,10 @@ class CategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'=>'Ce champs est obligatoire',
+            'name.required'=>'Le nom de la formule est obligatoire',
+            'name.min'=>'Le nom de la formule doit avoir un minimum de 5 caracteres',
+            'prix.required'=>'Le prix est obligatoire',
+            'description.required'=>'Le champs description est obligatoire'
         ];
     }
 }

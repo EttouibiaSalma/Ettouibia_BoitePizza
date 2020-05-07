@@ -24,6 +24,18 @@ class ProductCrudController extends CrudController
         $this->crud->setModel('App\Models\Product');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/product');
         $this->crud->setEntityNameStrings('product', 'products');
+        $this->crud->addColumn([
+            'name' => 'image',
+            'type' => 'image',
+            'label' => 'Image',
+            'height' => '80px',
+            'width'=> '80px'
+        ]);
+        $this->crud->addColumn([
+            'label' => "Category",
+            'type' => 'text',
+            'name' => 'category.name'
+         ]);
     }
 
     protected function setupListOperation()
@@ -63,7 +75,8 @@ class ProductCrudController extends CrudController
             'name' => 'image',
             'type' => 'image',
             'label' => 'Image',
-            'height' => '80px'
+            'height' => '80px',
+            'width'=> '80px'
         ]);
         $this->crud->addColumn([
             'label' => "End date",
@@ -79,13 +92,22 @@ class ProductCrudController extends CrudController
 
         // TODO: remove setFromDb() and manually define Fields
         $this->crud->addField([
-            'label' => "Categorie",
+            'label' => "Category",
             'type' => 'select',
             'name' => 'category_id', // the column that contains the ID of that connected entity;
             'entity' => 'category', // the method that defines the relationship in your Model
             'attribute' => 'name', // foreign key attribute that is shown to user
             'model' => "App\Models\Category"
          ])->afterField('discount');
+         $this->crud->addField([
+            'label' => "Image",
+            'type' => 'image',
+            'name' => 'image',
+            'upload' => true,
+            'crop' => true, // set to true to allow cropping, false to disable
+            'aspect_ratio' => 1,
+            'height' => '80px',
+            'width'=>'80px']);
         $this->crud->setFromDb();
     }
 

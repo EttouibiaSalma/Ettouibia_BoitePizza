@@ -5,8 +5,10 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
-class Product extends Model
+
+class Client extends Model
 {
     use CrudTrait;
 
@@ -16,11 +18,11 @@ class Product extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'products';
+    protected $table = 'clients';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-    //protected $fillable = ['category_id'];
+    // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -35,13 +37,12 @@ class Product extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id');
-    }
     public function comment()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = Hash::make($value);
     }
     /*
     |--------------------------------------------------------------------------
@@ -60,11 +61,11 @@ class Product extends Model
     | MUTATORS
     |--------------------------------------------------------------------------
     */
-    public function setImageAttribute($value)
+    public function setImagePathAttribute($value)
     {
-        $attribute_name = "image";
+        $attribute_name = "imagePath";
         $disk = config('backpack.base.root_disk_name');
-        $destination_path = "public/storage/uploads/products_images";
+        $destination_path = "public/storage/uploads/clients_images";
 
         // if the image was erased
         if ($value==null) {
