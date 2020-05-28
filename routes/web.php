@@ -12,7 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'FrontController@productsList');
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('Home');
+Route::get('/menu', 'ProductController@productscategory')->name('Menu');
+
+//----------------- Cart -----------------------------
+
+Route::Post('/cart/add', 'CartController@store')->name('cart.store');
+Route::get('/cart', 'CartController@index')->name('shopping-cart');
+Route::get('/emptycart', function(){
+    Cart::destroy();
+    return redirect()->route('shopping-cart');
 });
+
+Route::delete('/cart/{rowId}', 'CartController@destroy')->name('cart.delete');

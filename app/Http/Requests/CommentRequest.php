@@ -26,8 +26,8 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'productCode' => 'required',
-            'clientNum'=>'required',
+            'productCode.name' => 'required',
+            'clientNum.first_name'=>'required',
             'message' => 'required'
         ];
     }
@@ -40,7 +40,9 @@ class CommentRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'productCode.name' => 'required',
+            'clientNum.first_name'=>'required',
+            'message' => 'required'
         ];
     }
 
@@ -52,9 +54,9 @@ class CommentRequest extends FormRequest
     public function messages()
     {
         return [
-            'message.required'=>'Le champs message est obligatoire',
-            'clientNum.first_name'=>'Le client est obligatoire',
-            'productCode.nom'=>'Le champs produit est obligatoire'
+            'clientNum.first_name.required'=>'Veuillez séléctionnez un client',
+            'productCode.name.required'=>'Veuillez séléctionnez un produit',
+            'message.required'=>'Le champs message est obligatoire'
         ];
     }
 }

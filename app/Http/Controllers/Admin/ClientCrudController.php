@@ -74,6 +74,17 @@ class ClientCrudController extends CrudController
             'type' => 'date',
             'name' => 'inscription_date'
          ]);
+         $this->crud->addFilter([
+            'type'  => 'date_range',
+            'name'  => 'inscription_date',
+            'label' => 'Plage de dates'
+          ],
+            true,
+            function ($value) { // if the filter is active, apply these constraints
+                 $dates = json_decode($value);
+                 $this->crud->addClause('where', 'inscription_date', '>=', $dates->from);
+                 $this->crud->addClause('where', 'inscription_date', '<=', $dates->to . ' 23:59:59');
+            });
          //$this->crud->setFromDb();
     }
 
@@ -123,32 +134,36 @@ class ClientCrudController extends CrudController
             'type' => 'address_algolia',
             'name' => 'address'
          ]);
+         /*
          $this->crud->addField([
             'label' => "Inscription date",
             'type' => 'datetime_picker',
             'name' => 'inscription_date'
          ]);
+         */
          $this->crud->addField([
             'label' => "Turnover",
             'type' => 'text',
             'name' => 'ca'
          ]);
+         /*
+         $this->crud->addField([
+            'name' => 'Admin',
+            'type' => 'select_from_array',
+            'label' => 'admin',
+            'options' => [
+                'Admin' => 'Admin',
+                'Client' => 'Client',
+            ],
+            'allows_null'       => true,
+        ]);
+        */
         //$this->crud->setFromDb();
     }
 
     protected function setupUpdateOperation()
     {
-      //$this->handlePasswordInput($request);
       $this->setupCreateOperation();
     }
-    protected function handlePasswordInput(\Illuminate\Foundation\Http\FormRequest $request)
-{
-	// Encrypt password if specified.
-	if ($request->input('password')) {
-		$request->request->set('password', bcrypt($request->input('password')));
-	} else {
-		$request->request->remove('password');
-   }
-   return $request;
-}
+   
 }

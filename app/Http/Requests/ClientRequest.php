@@ -28,9 +28,9 @@ class ClientRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'login'=>'required',
-            'password'=>'required',
+            'password'=>['required','min:8','regex:/[A-Z]/','regex:/[0-9]/','regex:/[-@$!%*#?&]/'],
             'imagePath'=>'required'
         ];
     }
@@ -55,13 +55,7 @@ class ClientRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required' => 'Ce champs est obligatoire',
-            'last_name.required' => 'Ce champs est obligatoire',
-            'email.required'=>'Ce champs est obligatoire',
-            'login.required'=>'Ce champs est obligatoire',
-            'password.required'=>'Ce champs est obligatoire',
-            'imagePath.required'=>'Ce champs est obligatoire'
-            
+           
         ];
     }
 }

@@ -42,7 +42,9 @@ class CommentCrudController extends CrudController
          $this->crud->addColumn([
             'label' => "Produit photo",
             'type' => 'image',
-            'name' => 'product.image'
+            'name' => 'product.image',
+            'height' => '80px',
+            'width'=> '100px'
          ]);
          $this->crud->addColumn([
             'label' => "Client",
@@ -72,13 +74,44 @@ class CommentCrudController extends CrudController
          $this->crud->addColumn([
             'label' => "Produit photo",
             'type' => 'image',
-            'name' => 'product.image'
+            'name' => 'product.image',
+            'height' => '80px',
+            'width'=> '100px'
          ]);
          $this->crud->addColumn([
             'label' => "Client",
             'type' => 'text',
             'name' => 'client.first_name'
          ]);
+         $this->crud->addFilter([
+            'type'  => 'date_range',
+            'name'  => 'pub_date',
+            'label' => 'Plage de dates'
+          ],
+            true,
+            function ($value) { // if the filter is active, apply these constraints
+                 $dates = json_decode($value);
+                 $this->crud->addClause('where', 'pub_date', '>=', $dates->from);
+                 $this->crud->addClause('where', 'pub_date', '<=', $dates->to . ' 23:59:59');
+            });
+            $this->crud->addFilter([
+               'name' => 'clientNum',
+               'type' => 'select2',
+               'label'=> 'Clients'
+             ], function() {
+                 return \App\Models\Client::all()->pluck('last_name', 'id')->toArray();
+             }, function($value) { // if the filter is active
+                 $this->crud->addClause('where', 'clientNum', $value);
+             });
+             $this->crud->addFilter([
+               'name' => 'productCode',
+               'type' => 'select2',
+               'label'=> 'Products'
+             ], function() {
+                 return \App\Models\Product::all()->pluck('name', 'id')->toArray();
+             }, function($value) { // if the filter is active
+                 $this->crud->addClause('where', 'productCode', $value);
+             });
          
     }
 
@@ -108,12 +141,14 @@ class CommentCrudController extends CrudController
             'type' => 'ckeditor',
             'name' => 'message'
          ]);
+         /*
          $this->crud->addField([
             'label' => "Publication date",
             'type' => 'datetime_picker',
             'name' => 'pub_date'
          ]);
-        $this->crud->setFromDb();
+         */
+        //$this->crud->setFromDb();
     }
 
     protected function setupUpdateOperation()

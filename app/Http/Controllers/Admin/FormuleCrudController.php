@@ -24,6 +24,13 @@ class FormuleCrudController extends CrudController
         $this->crud->setModel('App\Models\Formule');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/formule');
         $this->crud->setEntityNameStrings('formule', 'formules');
+        $this->crud->addColumn([
+            'name' => 'imagePath',
+            'type' => 'image',
+            'label' => 'Image',
+            'height' => '80px',
+            'width'=> '80px'
+        ]);
     }
 
     protected function setupListOperation()
