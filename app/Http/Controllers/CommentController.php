@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Models\Product;
-use App\Models\Supplement;
+use App\Models\Comment;
 
-class CartController extends Controller
+class CommentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +19,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $supps = Supplement::all();
-        return view('cart.index',compact('supps'));
+        //
     }
 
     /**
@@ -38,15 +40,13 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->id, $request->name, $request->price);
-        $product = Product::find($request->product_id);
-
-        $item = Cart::search(function ($cartItem, $rowId) use ($request){
-            return $cartItem->id === $request->product_id;
-        });
-        Cart::add($product->id, $product->name, 1, $product->price)
-        ->associate('App\Models\Product');
-        return redirect()->route('Menu');
+        
+        $comment = Comment::create([
+            'message'=> $request->get('message'),
+            'productCode'=>$request->get('productCode'),
+            'clientNum' => auth()->id()
+        ]);
+        return back();
     }
 
     /**
@@ -80,16 +80,13 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Cart::update($id, $request->quantity);
-        session()->flash('success_message', 'Quantity is updated ');
-        return response()->json(['success'=>true]);
-    }
-    public function updateTotal(Request $request)
-    {
-        $newtotal = $request->totalprice;
-        Cart::total() == $newtotal;
-        
-        return $newtotal;
+        $editTarget = Comment::find($id);
+        if(auth()->id() == $editTarget->clientNum){
+            $editTarget->update([
+                'message'=> $request->get('editmessage')
+            ]);
+        }
+        return back();
     }
 
     /**
@@ -98,9 +95,11 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($rowId)
+    public function destroy($id)
     {
-        Cart::remove($rowId);
+        $deleteTarget = Comment::find($id);
+        $deleteTarget->delete();
         return back();
+        
     }
 }

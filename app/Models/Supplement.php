@@ -5,7 +5,7 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Supplement extends Model
 {
     use CrudTrait;
 
@@ -15,11 +15,11 @@ class Comment extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'comments';
+    protected $table = 'supplements';
     // protected $primaryKey = 'id';
     // public $timestamps = false;
     protected $guarded = ['id'];
-     protected $fillable = ['clientNum', 'productCode', 'message'];
+    // protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,14 +34,7 @@ class Comment extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'productCode');
-    }
-    public function client()
-    {
-        return $this->belongsTo(Client::class, 'clientNum');
-    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

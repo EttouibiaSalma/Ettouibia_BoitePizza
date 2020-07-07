@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Noto+Serif:ital@1&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="/css/animate.css">
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="/css/ionicons.min.css">
 
     <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="/css/jquery.timepicker.css">
 
     
@@ -53,7 +55,7 @@ img.emoji {
 		      </button>
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a href="{{ route('index') }}" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="{{ route('Menu') }}" class="nav-link">Menu</a></li>
 	          <li class="nav-item"><a href="#" class="nav-link">Services</a></li>
 			  <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
@@ -90,7 +92,15 @@ img.emoji {
                             </li>
                         @endguest
                         
-            <li class="nav-item"><a href="{{ route('shopping-cart') }}" class="nav-link"> <img src="images/shopping-cart.png" width="40" height="36"></img> <span class="badge badge-light">{{ Cart::count() }}</span></a></li>
+            <li class="nav-item dropdown"><a href="{{ route('shopping-cart') }}" class="nav-link"> <img src="{{url('images/shopping-cart.png') }}" width="40" height="36"></img> <span class="badge badge-light">{{ Cart::count() }}</span></a>
+              @if ( Cart::count() != 0)
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('empty-cart') }}">
+                    {{ __('Empty cart') }}
+                    </a>
+            </div>
+            @endif
+            </li>
             
 	        </ul>
 	      </div>
@@ -99,6 +109,7 @@ img.emoji {
     <!-- END nav -->
 
     @yield('content')
+    @yield('js-content')
 
 
   <footer class="ftco-footer ftco-section img">
@@ -169,12 +180,14 @@ img.emoji {
   <script src="/js/jquery.magnific-popup.min.js"></script>
   <script src="/js/aos.js"></script>
   <script src="/js/jquery.animateNumber.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/js/bootstrap-select.min.js"></script>
   <script src="/js/bootstrap-datepicker.js"></script>
   <script src="/js/jquery.timepicker.min.js"></script>
   <script src="/js/scrollax.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="/js/google-map.js"></script>
   <script src="/js/main.js"></script>
+  
     
   </body>
 </html>

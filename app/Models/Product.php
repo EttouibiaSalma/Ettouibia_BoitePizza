@@ -43,6 +43,14 @@ class Product extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    public function order()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('nb', 'price');
+    }
+    public function elementbase()
+    {
+        return $this->belongsToMany(Elementbase::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES

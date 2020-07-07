@@ -3169,6 +3169,22 @@ input[type="button"].btn-block {
     background-color: #dee2e6;
     border-radius: 1rem; }
 
+    .bootstrap-select .bs-ok-default::after {
+      width: 0.3em;
+      height: 0.6em;
+      border-width: 0 0.1em 0.1em 0;
+      transform: rotate(45deg) translateY(0.5rem);
+  }
+  
+  .btn.dropdown-toggle:focus {
+      outline: none !important;
+  }
+
+  .z-depth-2 {
+     -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+}
+
 .nav {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5069,6 +5085,9 @@ button.bg-dark:focus {
 
 .rounded {
   border-radius: 0.25rem !important; }
+
+.rounded-pill {
+  border-radius: 25px !important; }
 
 .rounded-top {
   border-top-left-radius: 0.25rem !important;
@@ -8121,7 +8140,23 @@ h1, h2, h3, h4, h5,
   .form-control:focus, .form-control:active {
     border-color: #fac564; }
 
-textarea.form-control {
+    .form-comment {
+      height: 58px !important;
+      background: transparent !important;
+      color: rgba(24, 22, 22, 0.9) !important;
+      font-size: 18px;
+      border-radius: 1px;
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+      border: transparent !important;
+      border-bottom: 1px solid rgba(54, 53, 53, 0.08) !important;
+      padding-right: 0;
+      padding-left: 0; }
+      .form-comment:focus, .form-comment:active {
+        border-color: grey; }
+
+
+textarea.form-comment {
   height: inherit !important; }
 
 .ftco-vh-100 {

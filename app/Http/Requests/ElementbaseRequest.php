@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommentRequest extends FormRequest
+class ElementbaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'productCode' => 'required',
-            'clientNum'=>'required',
-            'message' => 'required'
+            // 'name' => 'required|min:5|max:255'
         ];
     }
 
@@ -39,7 +37,9 @@ class CommentRequest extends FormRequest
      */
     public function attributes()
     {
-        return [];
+        return [
+            //
+        ];
     }
 
     /**
@@ -49,6 +49,8 @@ class CommentRequest extends FormRequest
      */
     public function messages()
     {
-        return [];
+        return [
+            //
+        ];
     }
 }

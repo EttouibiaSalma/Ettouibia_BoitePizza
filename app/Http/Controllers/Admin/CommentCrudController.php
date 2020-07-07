@@ -56,6 +56,8 @@ class CommentCrudController extends CrudController
     protected function setupListOperation()
     {
         // TODO: remove setFromDb() and manually define Columns, maybe Filters
+        $this->crud->denyAccess('delete');
+        $this->crud->denyAccess('update');
         $this->crud->addColumn([
             'label' => "Message",
             'type' => 'text',
